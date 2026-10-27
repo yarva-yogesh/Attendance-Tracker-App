@@ -1,0 +1,88 @@
+Act as an expert senior Flutter architect. I need you to write a production-ready, highly polished, mobile-first application in flutter named "Attendance Tracker". Provide a complete, structured application codebase using a clean multi-file pattern (separate components for UI layouts, data models, and storage services).
+Ensure the application implements a professional, high-contrast DARK NAVY and ROYAL BLUE theme throughout the entire interface (completely eliminating all purple, plum, or lavender tones). Use a sleek dark charcoal background with deep navy undertones, and set primary active highlights to a clean sky-blue/light-blue accent color. Every list view must be optimized for ultra-smooth inertia scrolling on mobile devices using BouncingScrollPhysics.
+Implement the exact 4-screen flow, hybrid data architecture, and features below:
+============================================================
+SCREEN 1: BRANDED LOGIN & HYBRID AUTHENTICATION
+============================================================
+• Top of the screen: Include a prominent image/asset placeholder widget for the institutional logo.
+• Clear title text: "Attendance Tracker".
+• Inside a clean center card, provide a "Teacher Login" interface with clean, validated TextFormFields for Email and Password.
+• Include a decorative informational container box labeled "Only Authorized Users" styled in deep sapphire blue text.
+• Connect the login form to the 'supabase_flutter' package using: supabase.auth.signInWithPassword(email: ..., password: ...).
+• If authentication succeeds, navigate immediately to the Setup Screen. Extract the name from the email (example: if email is testing@gecg.com then extract Testing for future screen use).
+• If it fails or catches an exception, trigger a clean Material SnackBar displaying a user-friendly error message: "You have entered wrong credentials or Check your internet".
+• Primary Action Button: Labeled "Secure Connect", styled with a light-blue background and contrasting dark text.
+============================================================
+2. SCREEN 2: INSTITUTIONAL SETUP SCREEN
+• Top AppBar title: "Welcome Testing" the work Testing should be dynamic and displayed using the name extracted from the Email and keep the Welcome fixed.
+• Provide a "Select Time Slot" DropdownButtonFormField populated with exactly these options:
+◦ 09:30 AM to 10:30 AM
+◦ 10:30 AM to 11:30 AM
+◦ 11:45 AM to 12:45 PM
+◦ 12:45 PM to 01:45 PM
+◦ 02:30 PM to 04:30 PM
+• Provide a "Class Type" DropdownButtonFormField populated with exactly these options:
+◦ Theory
+◦ Lab
+• Provide a clean, styled "Select Department" DropdownButtonFormField populated with exactly these options:
+◦ Computer Science & Engg
+◦ Electronic & Communication Engg
+◦ Mechanical Engg
+◦ Civil Engg
+◦ Electrical & Electronic Engg
+• Based on the Department selected make sure that these following subjects are enabled:
+• Provide a "Select Academic Subject" DropdownButtonFormField populated with exactly these options for Computer Science & Engg:
+◦ BCS701 - Internet of Things
+◦ BCS702 - Parallel Computing
+◦ BCS703 - Cryptography & Network Security
+◦ BCS714D - Big Data Analytics
+• Provide a "Select Academic Subject" DropdownButtonFormField populated with exactly these options for Electronic & Communication & Engg:
+◦ BEC701 - VLSI
+◦ BEC702 - ECS
+• Provide a "Select Academic Subject" DropdownButtonFormField populated with exactly these options for Civil Engg:
+◦ BCV701 - Construction materials
+◦ BCV702 - Building construction
+• Provide a "Select Academic Subject" DropdownButtonFormField populated with exactly these options for Mechanical Engg:
+◦ BME701 - Non traditional machining
+◦ BME702 - Non conventioanl sources
+• Provide a "Select Academic Subject" DropdownButtonFormField populated with exactly these options for Electrical & Electronic Engg:
+◦ BEE701 - PCB designing
+◦ BEE702 - Wire Science
+• When all items are chosen, dynamically load the specific student list array belonging to that department to feed into the next screen.
+• Provide also a Action Button that directly takes them to "ANALYTICS & REPORTS DASHBOARD" when department and subject is selected in case if they don't want to record/mark the class but want to view the analytics of that subject.
+============================================================
+3. SCREEN 3: ATTENDANCE MARKING & LOCAL DATA PERSISTENCE
+• Display a dedicated layout screen featuring a clean ListView of students using responsive CheckboxListTile components.
+• Active checkbox markers must highlight in a clean blue accent color scheme.
+• Include an active, changing live visual counter header tracking the instant tally of "Present" and "Absent" selections.
+• Bottom Sticky Action Button: Labeled "Review Session Summary". Clicking it launches an AlertDialog modal showing a circular graphical overview or a clear numerical tally of total present and absent students for final confirmation.
+• CRITICAL SUBMISSION LOGIC: When the teacher hits "Confirm & Submit", DO NOT send the attendance to Supabase. Instead, save the records locally. Write a background storage class ('AttendanceStorage') that uses 'path_provider' and 'dart:convert' to securely append this session data to a local file named 'attendance_master.json'.
+• The JSON object for each session must record: 'id' (timestamp), 'date' (DD-MM-YYYY), 'department', 'subject', 'time-slot', 'class-type' and 'records' (a map matching student roll numbers/USN to their boolean true/false presence state).
+============================================================
+4. SCREEN 4: ANALYTICS & REPORTS DASHBOARD (2 SECTIONS)
+Configure a post-submission dashboard consisting of two distinct, interactive view tabs:
+A. "ANALYSIS" SECTION (DYNAMIC LIVE CALCULATOR with STRUCTURED PDF & NATIVE SHARING)
+• Every time this view loads, it must asynchronously read the internal 'attendance_master.json' local storage file.
+• Dynamically parse and display the "Total Number of Classes Taken" for the currently selected Subject/Department.
+• Below the header, display a horizontal scrolling list of chips showcasing all recorded calendar dates for those sessions.
+• In the main student list area below, dynamically compute metrics for each student:
+◦ Count the total historical sessions where the student's roll number was marked 'true' (Attended).
+◦ Calculate their live attendance percentage: (Attended Count / Total Classes Taken) * 100.
+◦ Render a clean string on each student card: "Attended: X / Y Classes (Percentage%)".
+◦ Add a sleek horizontal progress bar (LinearProgressIndicator) directly below their text, dynamically color-coded to match your blue/navy theme (or highlighting low attendance).
+• Render a professional report selector showing generated records.
+• Provide a clear "Share PDF Report" button utilizing the 'pdf' and 'share_plus' packages.
+• When clicked, compile a publication-grade academic PDF record layout in memory containing:
+◦ Centered bold header: "Attendance Tracker Report" followed by "Official Academic Attendance Record Summary".
+◦ Meta grid box: Subject Name, Session's Recorded Dates, dynamically computed metrics for each student that is latestly recoded/calculated.
+• The button handler must write the PDF bytes to a temporary directory path, execute 'Share.shareXFiles' to call the phone's native system sharing tray, and cleanly purge the temporary file from storage afterward.
+B. "REPORT" SECTION (STRUCTURED PDF & NATIVE SHARING)
+• Render a professional report selector showing generated records.
+• Provide a clear "Share PDF Report" button utilizing the 'pdf' and 'share_plus' packages.
+• When clicked, compile a publication-grade academic PDF record layout in memory containing:
+◦ Centered bold header: "Attendance Tracker" followed by "Official Academic Attendance Record Summary".
+◦ Meta grid box: Subject Name, Session Date, Teacher Name, Time Slot, Class Type, Total Strength, Count Present, and Count Absent.
+◦ Data Table 1: "LIST OF PRESENT STUDENTS" with clean columns for Sl. No., Student Name, and USN. Only populate rows for students marked present.
+◦ Data Table 2: "LIST OF ABSENT STUDENTS" showing Sl. No., Student Name, and USN for students marked absent.
+• The button handler must write the PDF bytes to a temporary directory path, execute 'Share.shareXFiles' to call the phone's native system sharing tray, and cleanly purge the temporary file from storage afterward.
+Ensure all asynchronous execution paths handle state safely with try-catch architectures, display standard circular loaders during file reading, and include thorough, professional inline developer documentation comments throughout the file structure so it looks meticulously handcrafted for project evaluation. Also, optimize the UI for both light and dark modes.

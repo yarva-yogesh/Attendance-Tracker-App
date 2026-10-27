@@ -1,0 +1,6 @@
+i have attached a logo image so, exactly keep it as the logo of my app.
+i have attached a student list PDF through which extract the student name and USN and exactly place those names for the computer science & Engg department.
+i have attached a screenshot of the Login screen where below the attendancee tracker main title there's a mini title of "GECG Institutional Portal" edit that text to "Institutional Portal" & in the bottom ther a message box with "Only antorized users - This console is restricted to official GECG teaching faculty for scure local attendance processing." edit that text to "Only Authrized Users are Allowed".
+i have attached a screenshot of the Analytics & reports screen where beside the share report icon there a text of "Session Detailed Summary" trim that text to "Session Summary".
+while the reports PDF's are generated you could see that in both the texts are bit over lapping on each other so correct that while the PDF's are generated & viewed.
+when the attendance of students are recorded/marked and hit submit there comes a message showing that details are stored in JSON so avoid that message completely to be shown.

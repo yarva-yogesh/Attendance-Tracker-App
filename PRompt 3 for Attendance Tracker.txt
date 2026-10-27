@@ -1,0 +1,2 @@
+when the PDF reports are generated in both the section's of the Analytics & Report screen, both the PDF's are in just one page and missing many students so, make sure that the PDF reports are generated in multiple pages and all the data are included without missing.
+I am ready to link the app for supabase cloud for authentication so ask me the required details to link with the account.
